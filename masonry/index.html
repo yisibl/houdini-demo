@@ -54,9 +54,21 @@
       --gap: 30px;
     }
   }
+
+  .item:nth-of-type(2) {
+    text-align: center;
+    font-size: 20px;
+    display: layout(masonry);
+    /* --gap: 5px; */
+    --columns: 2;
+  }
+
+  .sub-item {
+    background-color: #cd86a9;
+  }
 </style>
 
-<h1>CSS Houdini 实现自定义瀑布流布局 by 一丝</h1>
+<h1> <a href="https://drafts.css-houdini.org/css-layout-api/" target="_blank">CSS Houdini</a> 实现自定义瀑布流布局 by 一丝</h1>
   <pre style="font-size: 22px;"><style contenteditable style="display: block;"
 >  :root { --border: 5px; }
 
@@ -71,8 +83,14 @@
   <div class="item">1
     <img src="https://wx4.sinaimg.cn/mw1024/90f78f62ly1ffwv0ghbzyj20qo188dm1.jpg" alt="">
   </div>
+  <div class="item">
+    <div class="sub-item">1<img src="https://wx2.sinaimg.cn/orj360/90f78f62ly1fq3grm5bk7j21sg2dsx6u.jpg" alt=""></div>
+    <div class="sub-item">2<img src="https://wx2.sinaimg.cn/orj360/90f78f62ly1fq4aqhacgsj20qo0xn12k.jpg" alt=""></div>
+    <div class="sub-item">3<img src="https://wx4.sinaimg.cn/mw690/90f78f62ly1fmwpqb6gqjj20qo0zkq8v.jpg" alt=""></div>
+    <div class="sub-item">4<img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fn75g1vkedj20qo140ae4.jpg" alt=""></div>
+  </div>
   <div class="item">2
-    <img src="https://wx4.sinaimg.cn/mw690/90f78f62ly1fmwpqb6gqjj20qo0zkq8v.jpg" alt="">
+    <img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fm60m27b2gj21410qo7d0.jpg" alt="">
   </div>
   <div class="item">3
     <img src="https://wx2.sinaimg.cn/mw690/90f78f62ly1fon2gpm5xfj20qo141jwq.jpg" alt="">
@@ -113,19 +131,20 @@
     CSS.registerProperty({
       name: '--gap',
       syntax: '<length>',
-      initialValue: '0px'
+      initialValue: '0px',
+      // inherits: true, // 默认为 false 不继承
     });
 
     CSS.registerProperty({
       name: '--column-auto-width',
       syntax: '<length>',
-      initialValue: '0px'
+      initialValue: '0px',
     });
 
     CSS.registerProperty({
       name: '--columns',
       syntax: '*',
-      initialValue: 'auto'
+      initialValue: 'auto',
     });
   }
 </script>
