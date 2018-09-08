@@ -132,19 +132,21 @@
       name: '--gap',
       syntax: '<length>',
       initialValue: '0px',
-      // inherits: true, // 默认为 false 不继承
+      inherits: true,
     });
 
     CSS.registerProperty({
       name: '--column-auto-width',
       syntax: '<length>',
       initialValue: '0px',
+      inherits: false,
     });
 
     CSS.registerProperty({
       name: '--columns',
       syntax: '*',
       initialValue: 'auto',
+      inherits: false,
     });
   }
 </script>
