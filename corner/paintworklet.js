@@ -42,7 +42,7 @@ registerPaint('corner', class {
       context.fillStyle = 'blue';
       context.arc(endX, y, halfRadius, startAngle, endAngle, counterClockwise);
 
-      //设置组合方式（裁剪叠加图像）
+      // 设置组合方式（裁剪叠加图像）
       context.globalCompositeOperation = 'destination-out'
 
       context.fill();
