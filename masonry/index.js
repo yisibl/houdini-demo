@@ -1,5 +1,10 @@
-// registerLayout() 定义自定义布局的名称，甚至可以是汉字，比如「瀑布流」
+function parseNumber(value) {
+  const num = parseInt(value.toString());
+  if (isNaN(num)) return undefined;
+  return num;
+}
 
+// registerLayout() 定义自定义布局的名称，甚至可以是汉字，比如「瀑布流」
 registerLayout('masonry', class {
   static get inputProperties() {
     return [ '--gap', '--columns', '--column-auto-width', '--border', ];
@@ -12,15 +17,15 @@ registerLayout('masonry', class {
   *layout(children, edges, constraints, styleMap) {
     // Hack：由于 edges 暂未实现，目前只能通过自定义属性获取 border 宽度
     // https://chromium.googlesource.com/chromium/src.git/+/585c7af06665d7a58616a6c9dce46dc095f95d81/third_party/WebKit/Source/core/layout/custom/CSSLayoutDefinition.cpp#102
-    const borderWidth = parseInt(styleMap.get('--border').toString()); // 边框宽度
+    const borderWidth = parseNumber(styleMap.get('--border')); // 边框宽度
     const inlineSize = constraints.fixedInlineSize - borderWidth * 2; //父元素宽度，6 去掉边框宽度
-    let gap = parseInt(styleMap.get('--gap').toString());
+    let gap = parseNumber(styleMap.get('--gap'));
     if (gap < 0) { gap = 0}
-    let columnValue = styleMap.get('--columns').toString();
+    let columnValue = styleMap.get('--columns');
 
-    const columnAutoWidth = parseInt(styleMap.get('--column-auto-width').toString());
+    const columnAutoWidth = parseNumber(styleMap.get('--column-auto-width'));
 
-    let columns = parseInt(columnValue);
+    let columns = parseNumber(columnValue);
     //  '--columns' 支持 auto 取值，根据 '--column-auto-width' 的值来自动计算
     if (columnValue === 'auto' || !columns) {
       columns = Math.ceil(inlineSize / columnAutoWidth);
