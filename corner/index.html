@@ -17,6 +17,8 @@
 
   main {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 30px;
   }
 
@@ -26,8 +28,6 @@
     margin-right: 30px;
     overflow: hidden;
     resize: both;
-    display: inline-block;
-    vertical-align: top;
     text-align: center;
     position: relative;
     background-color: white;
@@ -45,20 +45,19 @@
     /* background-image: paint(corner); */
     -webkit-mask-image: paint(corner);
     mask-image: paint(corner);
-    --offset-x: -2px; /* 圆心左右两侧的偏移 */
-    --offset-y: var(--y); /* 圆心顶部偏移 */
+    --offset-half: -2px; /* 圆心偏移 */
+    --offset-start: var(--y); /* 圆心距离顶部位置 */
     --half-radius: var(--h-radius); /* 圆的大小 */
     transition: --half-radius var(--time),
-                --offset-x var(--time),
-                --offset-y var(--time),
+                --offset-half var(--time),
+                --offset-block var(--time),
                 border-radius var(--time);
-
   }
 
   .box:hover {
-    --offset-y: 130px;
+    --offset-start: 130px;
     --y: 130px;
-    --offset-x: 100px;
+    --offset-half: 100px;
     --half-radius: 15px;
     border-radius: 50%;
   }
@@ -98,6 +97,48 @@
     opacity: 0;
     transition: opacity .5s;
   }
+
+
+  .coupon {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 2px;
+    padding-right: calc( var(--end-gap) - var(--half-radius) );
+    width: var(--box-width);
+    height: 50px;
+    margin-top: 50px;
+    font-size: 18px;
+    background-image: linear-gradient(270deg, #FFA329 3%, #F56C34);
+    -webkit-mask-image: paint(corner);
+    mask-image: paint(corner);
+
+    --box-width: 150px;
+    --end-gap: 25px;
+    --half-radius: 5px; /* 圆的大小 */
+    --offset-half: -1px; /* 圆心偏移 */
+    --offset-start: calc( var(--box-width) - var(--end-gap) ); /* 圆心距离左侧位置 */
+    --corner-direction: column;
+
+    transition: --box-width .3s, --offset-start .3s;
+  }
+
+  .coupon:hover {
+    --box-width: 200px;
+  }
+
+  .coupon:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc( var(--half-radius) + var(--offset-start) );
+    height: 100%;
+    border: 1px dotted rgba(255, 255, 255, 0.7);
+    border: 0.5px dotted rgba(255, 255, 255, 0.7);
+  }
   </style>
 </head>
 
@@ -106,6 +147,8 @@
     <div class="box">
       CSS Houdini Demo
     </div>
+
+    <div class="coupon">满 100 减 20</div>
     <div class="github-fork-ribbon-wrapper right">
       <div class="github-fork-ribbon">
         <a target="_blank" href="https://github.com/yisibl/houdini-demo">Fork me on GitHub</a>
@@ -125,21 +168,28 @@
       name: '--half-radius',
       syntax: '<length>',
       initialValue: '0px',
-      inherits: false,
+      inherits: true,
     });
 
     CSS.registerProperty({
-      name: '--offset-x',
+      name: '--offset-half',
       syntax: '<length>',
       initialValue: '0px',
       inherits: false,
     });
 
     CSS.registerProperty({
-      name: '--offset-y',
+      name: '--offset-start',
       syntax: '<length>',
       initialValue: '0px',
-      inherits: false,
+      inherits: true,
+    });
+
+    CSS.registerProperty({
+      name: '--box-width',
+      syntax: '<length>',
+      initialValue: '0px',
+      inherits: true,
     });
   }
 
