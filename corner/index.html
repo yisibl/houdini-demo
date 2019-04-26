@@ -11,6 +11,16 @@
     padding: 0;
   }
 
+  #tips {
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: #fff;
+  }
+
   body {
     display: flex;
     justify-content: center;
@@ -194,7 +204,6 @@
 
     font-size: 18px;
     color: #C51A07;
-    letter-spacing: 0.41px;
   }
 
   .coupon {
@@ -242,6 +251,7 @@
 </head>
 
 <body>
+  <div id="tips"></div>
   <!-- clip-path 路径 -->
   <svg width="0" height="0">
     <defs>
@@ -273,7 +283,7 @@
   if ('paintWorklet' in CSS) {
     CSS.paintWorklet.addModule('paintworklet.js');
   } else {
-    document.body.innerHTML = '您的浏览器暂时不支持 <a href="https://drafts.css-houdini.org/css-paint-api/">CSS Paint API</a>，请升级到最新的 Chrome Canary 并开启：chrome://flags/#enable-experimental-web-platform-features';
+    document.querySelector('#tips').innerHTML = '您的浏览器暂时不支持 <a href="https://drafts.css-houdini.org/css-paint-api/">CSS Paint API</a>，请升级到最新的 Chrome Canary 并开启：chrome://flags/#enable-experimental-web-platform-features';
   }
 
   // 注册自定义属性，使其可以动画
