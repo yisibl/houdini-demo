@@ -12,7 +12,7 @@
     align-items: center;
     flex-direction: column;
     font-family: arial, sans-serif;
-    background-color: #3f9cf2;
+    background-color: #9fd0fe;
   }
 
   main {
@@ -20,6 +20,12 @@
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+  }
+
+
+  .container {
+    -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.56));
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.56));
   }
 
   .box {
@@ -45,13 +51,16 @@
     /* background-image: paint(corner); */
     -webkit-mask-image: paint(corner);
     mask-image: paint(corner);
-    --offset-half: -2px; /* 圆心偏移 */
-    --offset-start: var(--y); /* 圆心距离顶部位置 */
-    --half-radius: var(--h-radius); /* 圆的大小 */
+    --offset-half: -2px;
+    /* 圆心偏移 */
+    --offset-start: var(--y);
+    /* 圆心距离顶部位置 */
+    --half-radius: var(--h-radius);
+    /* 圆的大小 */
     transition: --half-radius var(--time),
-                --offset-half var(--time),
-                --offset-block var(--time),
-                border-radius var(--time);
+      --offset-half var(--time),
+      --offset-block var(--time),
+      border-radius var(--time);
   }
 
   .box:hover {
@@ -107,7 +116,7 @@
     justify-content: center;
     color: #fff;
     border-radius: 2px;
-    padding-right: calc( var(--end-gap) - var(--half-radius) );
+    padding-right: calc(var(--end-gap) - var(--half-radius));
     width: var(--box-width);
     height: 50px;
     margin-top: 50px;
@@ -118,9 +127,12 @@
 
     --box-width: 150px;
     --end-gap: 25px;
-    --half-radius: 5px; /* 圆的大小 */
-    --offset-half: -1px; /* 圆心偏移 */
-    --offset-start: calc( var(--box-width) - var(--end-gap) ); /* 圆心距离左侧位置 */
+    --half-radius: 5px;
+    /* 圆的大小 */
+    --offset-half: -1px;
+    /* 圆心偏移 */
+    --offset-start: calc(var(--box-width) - var(--end-gap));
+    /* 圆心距离左侧位置 */
     --corner-direction: column;
 
     transition: --box-width .3s, --offset-start .3s;
@@ -134,7 +146,7 @@
     content: '';
     position: absolute;
     top: 0;
-    left: calc( var(--half-radius) + var(--offset-start) );
+    left: calc(var(--half-radius) + var(--offset-start));
     height: 100%;
     border: 1px dotted rgba(255, 255, 255, 0.7);
     border: 0.5px dotted rgba(255, 255, 255, 0.7);
@@ -144,9 +156,12 @@
 
 <body>
   <main>
-    <div class="box">
-      CSS Houdini Demo
+    <div class="container">
+      <div class="box">
+        CSS Houdini Demo
+      </div>
     </div>
+
 
     <div class="coupon">满 100 减 20</div>
     <div class="github-fork-ribbon-wrapper right">
@@ -156,7 +171,7 @@
     </div>
   </main>
   <script>
-    if ('paintWorklet' in CSS) {
+  if ('paintWorklet' in CSS) {
     CSS.paintWorklet.addModule('paintworklet.js');
   } else {
     document.body.innerHTML = '您的浏览器暂时不支持 <a href="https://drafts.css-houdini.org/css-paint-api/">CSS Paint API</a>，请升级到最新的 Chrome Canary 并开启：chrome://flags/#enable-experimental-web-platform-features';
@@ -192,7 +207,6 @@
       inherits: true,
     });
   }
-
   </script>
 </body>
 
