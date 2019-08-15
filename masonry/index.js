@@ -10,11 +10,13 @@ registerLayout('masonry', class {
     return [ '--gap', '--columns', '--column-auto-width', '--border', ];
   }
 
-  *intrinsicSizes() {
+  // [css-layout-api] Convert to promise based API
+  // https://chromium.googlesource.com/chromium/src.git/+/9c224451fb63df743fbd510052458e088a438517
+  async intrinsicSizes() {
     /* TODO 浏览器暂未实现*/
   }
 
-  *layout(children, edges, constraints, styleMap) {
+  async layout(children, edges, constraints, styleMap) {
     // Hack：由于 edges 暂未实现，目前只能通过自定义属性获取 border 宽度
     // https://chromium.googlesource.com/chromium/src.git/+/585c7af06665d7a58616a6c9dce46dc095f95d81/third_party/WebKit/Source/core/layout/custom/CSSLayoutDefinition.cpp#102
     const borderWidth = parseNumber(styleMap.get('--border')); // 边框宽度
@@ -33,9 +35,11 @@ registerLayout('masonry', class {
 
     // 先确定每列子元素的宽度
     const childInlineSize = (inlineSize - ((columns - 1) * gap)) / columns; // 计算子元素宽度
-    const childFragments = yield children.map((child) => {
-      return child.layoutNextFragment({fixedInlineSize: childInlineSize});
-    });
+    const childFragments = await Promise.all(
+      children.map(child => {
+        return child.layoutNextFragment({fixedInlineSize: childInlineSize});
+      })
+    );
 
     let autoBlockSize = 0;
     const columnOffsets = Array(columns).fill(0);
