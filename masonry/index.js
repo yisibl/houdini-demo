@@ -30,9 +30,13 @@ registerLayout('masonry', class {
     const columnAutoWidth = parseNumber(styleMap.get('--column-auto-width'));
 
     let columns = parseNumber(columnValue);
-    //  '--columns' 支持 auto 取值，根据 '--column-auto-width' 的值来自动计算
-    if (columnValue === 'auto' || !columns) {
+
+    // '--columns' 支持 auto 取值，根据 '--column-auto-width' 的值来自动计算
+    // --columns = 0 时，使用 --column-auto-width 的值自动计算
+    if (columnValue === 'auto' || columns === 0 || !columns) {
       columns = Math.ceil(inlineSize / columnAutoWidth);
+    } else if (columns <= 0) {
+      columns = 1
     }
 
     // 先确定每列子元素的宽度
