@@ -7,7 +7,7 @@ function parseNumber(value) {
 // registerLayout() 定义自定义布局的名称，甚至可以是汉字，比如「瀑布流」
 registerLayout('masonry', class {
   static get inputProperties() {
-    return [ '--gap', '--columns', '--column-auto-width', '--border', ];
+    return [ '--gap', '--columns', '--column-auto-width' ];
   }
 
   // [css-layout-api] Convert to promise based API
@@ -17,12 +17,14 @@ registerLayout('masonry', class {
   }
 
   async layout(children, edges, constraints, styleMap) {
-    // Hack：由于 edges 暂未实现，目前只能通过自定义属性获取 border 宽度
-    // https://chromium.googlesource.com/chromium/src.git/+/585c7af06665d7a58616a6c9dce46dc095f95d81/third_party/WebKit/Source/core/layout/custom/CSSLayoutDefinition.cpp#102
-    const borderWidth = parseNumber(styleMap.get('--border')); // 边框宽度
-    const inlineSize = constraints.fixedInlineSize - borderWidth * 2; //父元素宽度，6 去掉边框宽度
+    // edges 已经实现，现在可以灵活的获取边距
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=726125#c40
+
+    const borderWidthInline = edges.inline; // 父元素 border + padding + scrollbar 宽度
+    const inlineSize = constraints.fixedInlineSize - borderWidthInline; // 实际渲染区域的总宽度
+
     let gap = parseNumber(styleMap.get('--gap'));
-    if (gap < 0) { gap = 0}
+    if (gap < 0) gap = 0
     let columnValue = styleMap.get('--columns');
 
     const columnAutoWidth = parseNumber(styleMap.get('--column-auto-width'));
@@ -44,7 +46,6 @@ registerLayout('masonry', class {
     let autoBlockSize = 0;
     const columnOffsets = Array(columns).fill(0);
 
-
     for (let childFragment of childFragments) {
       // Select the column with the least amount of stuff in it.
       const min = columnOffsets.reduce((acc, val, idx) => {
@@ -56,19 +57,19 @@ registerLayout('masonry', class {
       }, {val: +Infinity, idx: -1});
 
       // 水平方向
-      childFragment.inlineOffset = (childInlineSize + gap) * min.idx + borderWidth;
+      childFragment.inlineOffset = (childInlineSize + gap) * min.idx + edges.inlineStart;
 
       // 垂直方向
       if (min.val === 0) {
         // 顶部 border 偏移
-        childFragment.blockOffset = min.val + borderWidth;
+        childFragment.blockOffset = min.val + edges.blockStart;
       } else {
         childFragment.blockOffset = min.val + gap;
       }
 
       // 计算外层容器高度
       columnOffsets[min.idx] = childFragment.blockOffset + childFragment.blockSize;
-      autoBlockSize = Math.max(autoBlockSize, columnOffsets[min.idx] + borderWidth);
+      autoBlockSize = Math.max(autoBlockSize, columnOffsets[min.idx] + edges.blockEnd);
     }
 
     return {autoBlockSize, childFragments};
