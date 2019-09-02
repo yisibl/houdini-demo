@@ -7,7 +7,7 @@ registerPaint('line', class {
   paint(ctx, geom, properties) {
     const lineColor = properties.get('--line-color') ? properties.get('--line-color').toString() : 'rgba(0, 0, 0, 0)';
     const lineWidth = properties.get('--line-width') ? properties.get('--line-width').toString().replace(/[a-z]/gi, '') : 1;
-    const lineStyle = properties.get('--line-style') ? properties.get('--line-style').toString().replace(/^\s|'|"/g, '') : '';
+    const lineStyle = properties.get('--line-style') ? properties.get('--line-style').toString().trim().replace(/'|"/g, '') : '';
 
 
     const width = geom.width;
@@ -46,7 +46,8 @@ registerPaint('progress', class {
     const fillColor = styleMap.get('--fill-color') ? styleMap.get('--fill-color').toString() : 'rgba(0, 0, 0, 0)';
     const trackColor = styleMap.get('--track-color') ? styleMap.get('--track-color').toString() : 'rgba(0, 0, 0, 0)';
     const strokeColor = styleMap.get('--stroke-color') ? styleMap.get('--stroke-color').toString() : 'rgba(0, 0, 0, 0)';
-    let strokeStyle = styleMap.get('--stroke-style') ? styleMap.get('--stroke-style').toString().trim() : 'round';
+    let strokeStyle = styleMap.get('--stroke-style') ? styleMap.get('--stroke-style').toString().trim().replace(/'|"/g, '') : 'round';
+    debugger
 
     if (strokeStyle === '') strokeStyle = 'round'
 
