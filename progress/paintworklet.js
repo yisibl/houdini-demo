@@ -42,16 +42,18 @@ registerPaint('progress', class {
 
   // cssString now renamed to cssText
   // https://bugs.chromium.org/p/chromium/issues/detail?id=545318#c65
-  paint(context, geom, properties) {
-    const fillColor = properties.get('--fill-color') ? properties.get('--fill-color').toString() : 'rgba(0, 0, 0, 0)';
-    const trackColor = properties.get('--track-color') ? properties.get('--track-color').toString() : 'rgba(0, 0, 0, 0)';
-    const strokeColor = properties.get('--stroke-color') ? properties.get('--stroke-color').toString() : 'rgba(0, 0, 0, 0)';
-    const strokeStyle = properties.get('--stroke-style') ? properties.get('--stroke-style').toString() : 'round';
+  paint(context, geom, styleMap) {
+    const fillColor = styleMap.get('--fill-color') ? styleMap.get('--fill-color').toString() : 'rgba(0, 0, 0, 0)';
+    const trackColor = styleMap.get('--track-color') ? styleMap.get('--track-color').toString() : 'rgba(0, 0, 0, 0)';
+    const strokeColor = styleMap.get('--stroke-color') ? styleMap.get('--stroke-color').toString() : 'rgba(0, 0, 0, 0)';
+    let strokeStyle = styleMap.get('--stroke-style') ? styleMap.get('--stroke-style').toString().trim() : 'round';
 
-    const percentage = properties.get('--percentage') ? parseInt(properties.get('--percentage').toString()) : 100;
+    if (strokeStyle === '') strokeStyle = 'round'
 
-    const strokeWidth = properties.get('--stroke-width') ? properties.get('--stroke-width').toString() : 0;
-    let strokeRotate = properties.get('--stroke-rotate').toString().replace(/[a-z]/gi, '');
+    const percentage = styleMap.get('--percentage') ? parseInt(styleMap.get('--percentage').toString()) : 100;
+
+    const strokeWidth = styleMap.get('--stroke-width') ? styleMap.get('--stroke-width').toString() : 0;
+    let strokeRotate = styleMap.get('--stroke-rotate').toString().replace(/[a-z]/gi, '');
 
     drawProgress(strokeColor, strokeWidth, strokeStyle, strokeRotate, trackColor, fillColor, percentage);
 
