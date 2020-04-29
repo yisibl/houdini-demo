@@ -46,18 +46,19 @@
     }
 
     .item:nth-of-type(2n+1) {
-      background-color: #cd86a9;
+      background-color: #a0776a;
     }
 
     img {
       display: block;
       max-width: 100%;
+      height: auto;
     }
 
     /* 支持 Media Queries */
     @media screen and (max-width: 901px) {
       body main {
-        --columns: 3;
+        /* --columns: 3; */
         --gap: 30px;
       }
     }
@@ -73,14 +74,14 @@
     }
 
     .sub-item {
-      background-color: #cd86a9;
+      background-color: #a0776a;
     }
   </style>
 </head>
 
 <body>
   <h1> <a href="https://drafts.css-houdini.org/css-layout-api/" target="_blank">CSS Houdini</a> 实现自定义瀑布流布局 by 一丝</h1>
-  <pre style="font-size: 22px;"><style contenteditable style="display: block;"
+  <pre style="font-size: 20px; overflow-x: auto;"><style contenteditable style="display: flex;"
   >  :root { --border: 5px; }
 
     main {
@@ -92,46 +93,46 @@
 
   <main>
     <div class="item">1
-      <img src="//wx4.sinaimg.cn/mw1024/90f78f62ly1ffwv0ghbzyj20qo188dm1.jpg" intrinsicsize="960x1592" alt=""
-        lazyload="on">
+      <img src="https://wx4.sinaimg.cn/mw1024/90f78f62ly1ffwv0ghbzyj20qo188dm1.jpg" width="960" height="1592" alt=""
+        loading="lazy">
     </div>
     <div class="item">
-      <div class="sub-item">1<img src="//wx2.sinaimg.cn/orj360/90f78f62ly1fq3grm5bk7j21sg2dsx6u.jpg"
-          intrinsicsize="360x479" alt="" lazyload="on"></div>
-      <div class="sub-item">2<img src="//wx2.sinaimg.cn/orj360/90f78f62ly1fq4aqhacgsj20qo0xn12k.jpg"
-          intrinsicsize="360x454" alt="" lazyload="on"></div>
-      <div class="sub-item">3<img src="//wx4.sinaimg.cn/mw690/90f78f62ly1fmwpqb6gqjj20qo0zkq8v.jpg"
-          intrinsicsize="690x920" alt="" lazyload="on"></div>
-      <div class="sub-item">4<img src="//wx1.sinaimg.cn/mw690/90f78f62ly1fn75g1vkedj20qo140ae4.jpg"
-          intrinsicsize="690x1035" alt="" lazyload="on"></div>
+      <div class="sub-item">1<img src="https://wx2.sinaimg.cn/orj360/90f78f62ly1fq3grm5bk7j21sg2dsx6u.jpg"
+          width="360" height="479" alt="" loading="lazy"></div>
+      <div class="sub-item">2<img src="https://wx2.sinaimg.cn/orj360/90f78f62ly1fq4aqhacgsj20qo0xn12k.jpg"
+          width="360" height="454" alt="" loading="lazy"></div>
+      <div class="sub-item">3<img src="https://wx4.sinaimg.cn/mw690/90f78f62ly1fmwpqb6gqjj20qo0zkq8v.jpg"
+          width="690" height="920" alt="" loading="lazy"></div>
+      <div class="sub-item">4<img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fn75g1vkedj20qo140ae4.jpg"
+          width="690" height="1035" alt="" loading="lazy"></div>
     </div>
     <div class="item">2
-      <img src="//wx1.sinaimg.cn/mw690/90f78f62ly1fm60m27b2gj21410qo7d0.jpg" intrinsicsize="690x460" alt=""
-        lazyload="on">
+      <img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fm60m27b2gj21410qo7d0.jpg" width="690" height="460" alt=""
+        loading="lazy">
     </div>
     <div class="item">3
-      <img src="//wx2.sinaimg.cn/mw690/90f78f62ly1fon2gpm5xfj20qo141jwq.jpg" intrinsicsize="690x1036" alt=""
-        lazyload="on">
+      <img src="https://wx2.sinaimg.cn/mw690/90f78f62ly1fon2gpm5xfj20qo141jwq.jpg" width="690" height="1036" alt=""
+        loading="lazy">
     </div>
     <div class="item">4
-      <img src="//wx2.sinaimg.cn/mw690/90f78f62ly1fmls4xf4w2j21400qoafa.jpg" intrinsicsize="690x460" alt=""
-        lazyload="on">
+      <img src="https://wx2.sinaimg.cn/mw690/90f78f62ly1fmls4xf4w2j21400qoafa.jpg" width="690" height="460" alt=""
+        loading="lazy">
     </div>
     <div class="item">5
-      <img src="//wx1.sinaimg.cn/mw690/90f78f62ly1fm3c63rpq9j20a00dwjsp.jpg" alt="" lazyload="on">
+      <img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fm3c63rpq9j20a00dwjsp.jpg" alt="" loading="lazy" width="360" height="500">
     </div>
     <div class="item">6
-      <img src="//wx3.sinaimg.cn/mw690/90f78f62ly1flvw2e37xhj20qo0zkgpt.jpg" alt="" lazyload="on">
+      <img src="https://wx3.sinaimg.cn/mw690/90f78f62ly1flvw2e37xhj20qo0zkgpt.jpg" alt="" loading="lazy" width="690" height="920">
     </div>
     <div class="item">7
-      <img src="//wx1.sinaimg.cn/mw690/90f78f62ly1fm60m27b2gj21410qo7d0.jpg" intrinsicsize="690x460" alt=""
-        lazyload="on">
+      <img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fm60m27b2gj21410qo7d0.jpg" width="690" height="460" alt=""
+        loading="lazy">
     </div>
     <div class="item">8
-      <img src="//wx1.sinaimg.cn/mw690/90f78f62ly1fljwv84geqj20qu0qokjl.jpg" alt="" lazyload="on">
+      <img src="https://wx1.sinaimg.cn/mw690/90f78f62ly1fljwv84geqj20qu0qokjl.jpg" alt="" loading="lazy" width="690" height="686">
     </div>
     <div class="item">9
-      <img src="//wx3.sinaimg.cn/mw690/90f78f62ly1fkd2l7e6mlj20qo0zktfr.jpg" alt="" lazyload="on">
+      <img src="https://wx3.sinaimg.cn/mw690/90f78f62ly1fkd2l7e6mlj20qo0zktfr.jpg" alt="" loading="lazy" width="690" height="920">
     </div>
   </main>
   <div class="github-fork-ribbon-wrapper right">
