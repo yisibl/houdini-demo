@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@property test</title>
+  <title>CSS Houdini @property demo</title>
   <style>
     header {
       grid-column: span 2;
@@ -15,7 +15,7 @@
 
     .box {
       display: grid;
-      grid-template-columns: min-content 350px;
+      grid-template-columns: min-content 360px;
       grid-template-rows: max-content 1fr;
       justify-content: center;
     }
@@ -26,13 +26,18 @@
       border-radius: 10px;
       padding-right: 1em;
     }
+
+    #error {
+      color: red;
+    }
   </style>
 </head>
 <body>
   <div class="box">
     <header>
-      <h1>@property test</h1>
+      <h1>CSS Houdini @property demo</h1>
       <p>@property 是 JS CSS.registerProperty() 方法在 CSS 中的实现，通过它可以使自定义属性产生过渡或动画。</p>
+      <p id="error"></p>
       <ul>
         <li><code>open /Applications/Google\ Chrome\ Canary.app/ --args --enable-blink-features=CSSVariables2AtProperty</code></li>
         <li><a href="https://bugs.chromium.org/p/chromium/issues/detail?id=973830" target="_blank">Chromium Bug 973830</a></li>
@@ -66,6 +71,29 @@
     <div class="test"></div>
   </div>
   <script>
+  // 判断是否支持 @property
+  let el = document.createElement('style')
+  el.textContent = `
+    @property --foo {
+      syntax: "<length>";
+      inherits: false;
+      initial-value: 10px;
+    }
+  `
+  document.documentElement.appendChild(el)
+
+  function isSupportedAtRule(el) {
+    if (el.sheet.cssRules.length > 0) {
+      return el.sheet.cssRules[0].cssText.indexOf('initial-value') != -1
+    } else {
+      return false
+    }
+  }
+
+  const error = document.getElementById('error')
+  if (!isSupportedAtRule(el)) {
+    error.textContent = '当前浏览器不支持 @property, 请确保是最新的 Chrome Canary，并使用下面的命令行启动！'
+  }
   // 使用 JS 方法注册自定义属性
   /* if ('registerProperty' in CSS) {
     CSS.registerProperty({
