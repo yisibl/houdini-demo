@@ -1,0 +1,112 @@
+:root {
+  --tips-size: 100px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, system, BlinkMacSystemFont,
+    "PingFang SC", "Microsoft YaHei", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "Helvetica Neue", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-weight: normal;
+}
+
+main {
+  transition: gap 0.5s;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  counter-reset: count;
+  transition: outline .1s;
+}
+
+main:hover {
+  outline: var(--border) dashed #555;
+}
+
+.item {
+  position: relative;
+  overflow: hidden;
+  background-color: #607D8B;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  counter-increment: count;
+}
+
+.item .tips {
+  transform: translate(-50%, -50%) rotate(-45deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tips-size);
+  height: var(--tips-size);
+  background: rgba(46, 50, 51, 0.8);
+  transition: --tips-size .3s;
+  white-space: nowrap;
+}
+
+.item .tips:before {
+  content: counters(count, '.', decimal);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--tips-size) / 2.81408534);
+  height: calc(var(--tips-size) / 2.81408534);
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(141%, 141%) rotate(45deg);
+  transform-origin: 0 0;
+}
+
+.item:nth-of-type(2n+1) {
+  /* background-color: #a0776a; */
+}
+
+img,
+video {
+  display: block;
+  /* 保证图片等比缩放 */
+  width: 100%;
+  height: auto;
+}
+
+/* 支持 Media Queries */
+@media screen and (max-width: 901px) {
+  body main {
+    gap: 10px;
+  }
+}
+
+.item:nth-of-type(2) {
+  text-align: center;
+  display: grid;
+  grid-template-rows: masonry;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  align-tracks: stretch;
+  gap: 10px;
+  padding: 10px;
+  background: #607D8B;
+}
+
+.item:nth-of-type(2):before {
+  display: block;
+}
+
+.sub-item {
+  background-color: #a0776a;
+  counter-increment: sub-count;
+}
+
+.grid-item {
+  border-radius: 8px;
+  overflow: hidden;
+}

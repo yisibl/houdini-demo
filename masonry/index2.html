@@ -7,136 +7,22 @@
   <meta name="referrer" content="no-referrer" />
   <title>CSS Houdini 实现自定义瀑布流布局 by 一丝</title>
   <link rel="stylesheet" href="../src/github-fork.css">
-  <style>
-    :root {
-      --tips-size: 100px;
-    }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, system, BlinkMacSystemFont,
-        "PingFang SC", "Microsoft YaHei", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "Helvetica Neue", sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-      font-weight: normal;
-    }
-
-    main {
-      margin: 0;
-      transition: gap 0.5s;
-      border: var(--border) dashed #555;
-      margin-left: auto;
-      margin-right: auto;
-      counter-reset: count;
-    }
-
-    .item {
-      position: relative;
-      overflow: hidden;
-      background-color: #607D8B;
-      color: #fff;
-      /* padding: 10px; */
-      padding-top: 0;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      counter-increment: count;
-    }
-
-    .item .tips {
-      transform: translate(-50%, -50%) rotate(-45deg);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: var(--tips-size);
-      height: var(--tips-size);
-      background: rgba(46, 50, 51, 0.8);
-      transition: --tips-size .3s;
-      white-space: nowrap;
-    }
-
-    .item .tips:before {
-      content: counters(count, '.', decimal);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: calc(var(--tips-size) / 2.81408534);
-      height: calc(var(--tips-size) / 2.81408534);
-      z-index: 1;
-      pointer-events: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform: translate(141%, 141%) rotate(45deg);
-      transform-origin: 0 0;
-    }
-
-    .item:nth-of-type(2n+1) {
-      /* background-color: #a0776a; */
-    }
-
-    img,
-    video {
-      display: block;
-      /* 保证图片等比缩放 */
-      width: 100%;
-      height: auto;
-    }
-
-    /* 支持 Media Queries */
-    @media screen and (max-width: 901px) {
-      body main {
-        gap: 30px;
-      }
-    }
-
-    .item:nth-of-type(2) {
-      text-align: center;
-      display: grid;
-      grid-template-rows: masonry;
-      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-      align-tracks: stretch;
-      gap: 10px;
-      padding: 10px;
-      background: #607D8B;
-    }
-
-    .item:nth-of-type(2):before {
-      display: block;
-    }
-
-    .sub-item {
-      background-color: #a0776a;
-      counter-increment: sub-count;
-    }
-
-    .grid-item {
-      border-radius: 8px;
-      overflow: hidden;
-    }
-  </style>
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
   <h1> <a href="https://github.com/w3c/csswg-drafts/issues/4650" target="_blank">CSS Gird</a> 原生瀑布流布局 by 一丝</h1>
   <pre style="font-size: 22px; overflow-x: auto;"><style contenteditable style="display: flex;"
   >  :root { --border: 5px; }
-
     main {
       display: grid;
       grid-template-rows: masonry;
       grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );
-      /* align-tracks: stretch; */
       gap: 12px;
       max-width: 70vw;
-      margin: 0 auto;
+      /* align-tracks: stretch; */
       /* masonry-auto-flow: next; */
     }</style></pre>
-
   <main>
     <div class="item">
       <div class="tips"></div>

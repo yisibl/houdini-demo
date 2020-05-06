@@ -7,90 +7,20 @@
   <meta name="referrer" content="no-referrer" />
   <title>CSS Houdini 实现自定义瀑布流布局 by 一丝</title>
   <link rel="stylesheet" href="../src/github-fork.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, system, BlinkMacSystemFont,
-        "PingFang SC", "Microsoft YaHei", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "Helvetica Neue", sans-serif;
-    }
-
-    h1 {
-      text-align: center;
-      font-weight: normal;
-    }
-
-    main {
-      margin: 0;
-      transition: --gap 0.5s;
-      border: var(--border) dashed #555;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /*main:hover {
-      --gap: 10px;
-      --columns: 3;
-    }*/
-
-    .item {
-      background-color: #607D8B;
-      color: #fff;
-      padding: 10px;
-      padding-top: 0;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      word-break: break-all;
-    }
-
-    .item:nth-of-type(2n+1) {
-      background-color: #a0776a;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* 支持 Media Queries */
-    @media screen and (max-width: 901px) {
-      body main {
-        /* --columns: 3; */
-        --gap: 30px;
-      }
-    }
-
-    .item:nth-of-type(2) {
-      text-align: center;
-      font-size: 20px;
-      display: layout(masonry);
-      --gap: 10px;
-      --columns: 2;
-      --column-auto-width: 100px;
-      padding: 10px;
-    }
-
-    .sub-item {
-      background-color: #a0776a;
-    }
-  </style>
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
   <h1> <a href="https://drafts.css-houdini.org/css-layout-api/" target="_blank">CSS Houdini</a> 实现自定义瀑布流布局 by 一丝</h1>
   <pre style="font-size: 20px; overflow-x: auto;"><style style="display: flex;"
   >  :root { --border: 5px; }
-
     main {
       display: layout(masonry); /* 自定义布局的名称 */
       --gap: 20px; /* 间距 */
-      --columns: 3; /* 默认 auto */
+      --columns: 6; /* 默认 auto */
       --column-auto-width: 300px;
+      max-width: 70vw;
     }</style></pre>
-
   <main>
     <div class="item">
       <div class="tips"></div>
