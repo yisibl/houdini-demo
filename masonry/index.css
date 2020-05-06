@@ -53,12 +53,8 @@ main:hover {
 
 .item .tips:before {
   content: counters(count, '.', decimal);
-  position: absolute;
-  top: 0;
-  left: 0;
   width: calc(var(--tips-size) / 2.81408534);
   height: calc(var(--tips-size) / 2.81408534);
-  z-index: 1;
   pointer-events: none;
   display: flex;
   justify-content: center;
