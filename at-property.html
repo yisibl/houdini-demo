@@ -35,11 +35,11 @@
 <body>
   <div class="box">
     <header>
-      <h1>CSS Houdini @property demo</h1>
-      <p>@property 是 JS CSS.registerProperty() 方法在 CSS 中的实现，通过它可以使自定义属性产生过渡或动画。</p>
+      <h1>CSS Houdini @property Demo</h1>
+      <p>@property 是 JS CSS.registerProperty() 方法在 CSS 中的实现，通过它可以使自定义属性产生过渡或动画。<a href="https://www.chromestatus.com/feature/5193698449031168" target="_blank">Chrome 85 + 开始正式支持。</a></p>
       <p id="error"></p>
       <ul>
-        <li><code>open /Applications/Google\ Chrome\ Canary.app/ --args --enable-blink-features=CSSVariables2AtProperty</code></li>
+        <!-- <li><code>open /Applications/Google\ Chrome\ Canary.app/ --args --enable-blink-features=CSSVariables2AtProperty</code></li> -->
         <li><a href="https://bugs.chromium.org/p/chromium/issues/detail?id=973830" target="_blank">Chromium Bug 973830</a></li>
         <li><a href="https://drafts.css-houdini.org/css-properties-values-api/#at-property-rule" target="_blank">Spec</a></li>
       </ul>
@@ -92,7 +92,7 @@
 
   const error = document.getElementById('error')
   if (!isSupportedAtRule(el)) {
-    error.textContent = '当前浏览器不支持 @property, 请确保是最新的 Chrome Canary，并使用下面的命令行启动！'
+    error.textContent = '当前浏览器不支持 @property, 请确保 Chrome 版本为 85+'
   }
   // 使用 JS 方法注册自定义属性
   /* if ('registerProperty' in CSS) {
